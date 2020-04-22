@@ -514,11 +514,13 @@ var config = {
      callStatsConfIDNamespace
      callStatsCustomScriptUrl
      desktopSharingSources
-     disableAEC
-     disableAGC
-     disableAP
-     disableHPF
-     disableNS
+    */
+    disableAEC: {{ jitsi_meet_config_disable_aec }}, // disable acoustic echo cancellation
+    disableAGC: {{ jitsi_meet_config_disable_agc }}, // disable automatic gain control
+    disableAP: {{ jitsi_meet_config_disable_ap }}, // disable all audio processing
+    disableHPF: {{ jitsi_meet_config_disable_hpf }}, // disable high pass filter
+    disableNS: {{ jitsi_meet_config_disable_ns }}, // disable noise suppression
+    /**
      enableLipSync
      enableTalkWhileMuted
      forceJVB121Ratio

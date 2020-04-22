@@ -44,6 +44,11 @@ jitsi_meet_debconf_settings:
     vtype: string
 jitsi_meet_config_resolution: 720
 jitsi_meet_config_disable_third_party_requests: "true"
+jitsi_meet_config_disable_aec: "false" # disable acoustic echo cancellation
+jitsi_meet_config_disable_agc: "false" # disable automatic gain control
+jitsi_meet_config_disable_ap: "false" # disable all audio processing
+jitsi_meet_config_disable_hpf: "false" # disable high pass filter
+jitsi_meet_config_disable_ns: "false" # disable noise suppression
 jitsi_meet_config_p2p_enabled: "true"
 jitsi_meet_config_stun_servers:
   - stun:meet-jit-si-turnrelay.jitsi.net:443
