@@ -1,13 +1,25 @@
 ---
 
-- name: Adjust global nginx config
+- name: Ensure that nginx is installed.
+  apt:
+    name: nginx
+    state: present
+
+- name: Adjust global nginx config.
   template:
     src: nginx/nginx.conf.j2
     dest: /etc/nginx/nginx.conf
     owner: root
     group: root
     mode: "0644"
-  notify: restart nginx
+  notify: reload nginx
+
+- name: Add mimetype for wasm files.
+  lineinfile:
+    path: /etc/nginx/mime.types
+    line: "    application/wasm                      wasm;"
+    insertbefore: '^\}$'
+  notify: reload nginx
 
 - name: Copy Nginx config for Jitsi Meet domain.
   template:
@@ -16,7 +28,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: restart nginx
+  notify: reload nginx
 
 - name: Copy Nginx multiplexer config if local turnserver is used.
   template:
@@ -26,28 +38,20 @@
     group: root
     mode: 0644
   when: jitsi_meet_nginx_multiplexer
-  notify: restart nginx
+  notify: reload nginx
 
 - name: Deactivate default Nginx site.
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
-  notify: restart nginx
+  notify: reload nginx
 
 - name: Activate custom Jitsi Meet Nginx site.
   file:
     path: "/etc/nginx/sites-enabled/{{ jitsi_meet_server_name }}.conf"
     src: "/etc/nginx/sites-available/{{ jitsi_meet_server_name }}.conf"
     state: link
-  notify: restart nginx
-
-- name: ensure logrotate config is latest
-  template:
-    src: logrotate.d/nginx.j2
-    dest: /etc/logrotate.d/nginx
-    owner: root
-    group: root
-    mode: 0644
+  notify: reload nginx
 
 - name: Enable nginx
   service:

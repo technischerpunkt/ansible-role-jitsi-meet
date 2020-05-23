@@ -5,10 +5,10 @@
     name: prosody
     state: restarted
 
-- name: restart nginx
+- name: reload nginx
   service:
     name: nginx
-    state: restarted
+    state: reloaded
 
 - name: restart jitsi-videobridge2
   service:

@@ -2,16 +2,11 @@
 
 - name: Application configuration file
   template:
-    dest: "/usr/share/jitsi-meet/interface_config.js"
+    dest: "/etc/jitsi/meet/{{ jitsi_meet_server_name }}-interface_config.js"
     src: interface_config.js.j2
     owner: root
     group: root
     mode: "0644"
-  notify:
-    - restart jitsi-videobridge2
-    - restart jicofo
-    - restart prosody
-    - restart nginx
 
 - name: Title configuration file
   template:
@@ -75,3 +70,16 @@
         regexp: 'override.css'
         line: '    <link rel="stylesheet" href="css/override.css">'
         insertbefore: '</head>'
+
+- name: Configure debsums to ignore customized assets
+  when: jitsi_meet_debsums_ignore_custom_assets
+  lineinfile:
+    path: /etc/debsums-ignore
+    create: yes
+    line: /usr/share/jitsi-meet/{{ item }}
+    owner: root
+    group: root
+    mode: ug=r,o=
+  loop:
+    - images/watermark.png
+    - title.html
