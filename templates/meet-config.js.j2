@@ -188,7 +188,10 @@ var config = {
     // fileRecordingsServiceSharingEnabled: false,
 
     // Whether to enable live streaming or not.
-    // liveStreamingEnabled: false,
+    liveStreamingEnabled: {{ jitsi_meet_jibri_enabled | to_json }},
+{% if jitsi_meet_jibri_enabled %}
+    hiddenDomain: 'recorder.{{ jitsi_meet_server_name }}',
+{% endif %}
 
     // Transcription (in interface_config,
     // subtitles and buttons can be configured)
@@ -520,7 +523,6 @@ var config = {
      enableLipSync
      enableTalkWhileMuted
      forceJVB121Ratio
-     hiddenDomain
      ignoreStartMuted
      nick
      startBitrate

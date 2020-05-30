@@ -86,6 +86,16 @@
   command: prosodyctl register jvb auth.{{ jitsi_meet_server_name }} {{ jitsi_meet_videobridge_password }}  # noqa: 301
   changed_when: false
 
+- name: Register jibri agent with Prosody service.
+  command: prosodyctl register jibri auth.{{ jitsi_meet_server_name }} {{ jitsi_meet_jibri_password }}  # noqa: 301
+  changed_when: false
+  when: jitsi_meet_jibri_enabled
+
+- name: Register recorder agent with Prosody service.
+  command: prosodyctl register recorder recorder.{{ jitsi_meet_server_name }} {{ jitsi_meet_recorder_password }}  # noqa: 301
+  changed_when: false
+  when: jitsi_meet_jibri_enabled
+
 - name: Enable prosody
   service:
     name: prosody

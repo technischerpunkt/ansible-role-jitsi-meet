@@ -46,7 +46,7 @@
     state: present
     update_cache: yes
 
-- name: Copy sip-communicator.properties
+- name: Copy videobridge sip-communicator.properties
   template:
     src: videobridge/sip-communicator.properties.j2
     dest: /etc/jitsi/videobridge/sip-communicator.properties
@@ -61,6 +61,15 @@
     owner: jicofo
     group: jitsi
   notify: restart jicofo
+
+- name: Copy jicofo sip-communicator.properties
+  template:
+    src: jicofo/sip-communicator.properties.j2
+    dest: /etc/jitsi/jicofo/sip-communicator.properties
+    owner: jicofo
+    group: jitsi
+  notify: restart jicofo
+  when: jitsi_meet_jibri_enabled
 
 - name: Copy Jicofo log.properties
   copy:
