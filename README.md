@@ -1,6 +1,7 @@
 # Ansible role to install and configure Jitsi Meet
 
-[![Build Status](https://travis-ci.com/systemli/ansible-role-jitsi-meet.svg?branch=master)](https://travis-ci.com/systemli/ansible-role-jitsi-meet) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-jitsi_meet-blue.svg)](https://galaxy.ansible.com/systemli/jitsi_meet/)
+[![Build Status](https://github.com/systemli/ansible-role-jitsi-meet/workflows/Integration/badge.svg?branch=master)](https://github.com/systemli/ansible-role-jitsi-meet/actions?query=workflow%3AIntegration)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-jitsi_meet-blue.svg)](https://galaxy.ansible.com/systemli/jitsi_meet/)
 
 This role installs and configure [Jitsi Meet](https://jitsi.org/jitsi-meet/) with nginx Webserver and prosody as XMPP Server.
 
@@ -11,9 +12,16 @@ derivatives like Ubuntu 20.04.
 Role Variables
 --------------
 
-See [`defaults/main.yml`](defaults/main.yml).
+You need to set the `jitsi_meet_base_secret` variable from which passwords for
+the various internally used accounts are created.
 
-**Important: Please change the defaults secrets to secure your installation!**
+See [`defaults/main.yml`](defaults/main.yml) for further available variables.
+
+Dependencies
+------------
+
+ - [systemli.apt_repositories](https://galaxy.ansible.com/systemli/apt_repositories)
+
 
 Download
 --------
