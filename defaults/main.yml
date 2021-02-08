@@ -14,7 +14,7 @@ jitsi_meet_videobridge_port: 5347
 jitsi_meet_jicofo_user: focus
 jitsi_meet_jicofo_port: 5347
 
-jitsi_meet_turn_tls_listening_port: 4446
+jitsi_meet_turn_secret: "{{ vault_jitsi_meet_turn_secret }}"
 
 jitsi_meet_ssl_cert_path: "/etc/ssl/certs/ssl-cert-snakeoil.pem"
 jitsi_meet_ssl_key_path: "/etc/ssl/private/ssl-cert-snakeoil.key"
