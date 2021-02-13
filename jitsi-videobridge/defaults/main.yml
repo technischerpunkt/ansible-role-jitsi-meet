@@ -14,4 +14,4 @@ jitsi_meet_videobridge_prosody_server_ip: "{{ jitsi_meet_single_instance | terna
 jitsi_meet_videobridge_muc_nickname: "{{ jitsi_meet_single_instance | ternary('jvb1', inventory_hostname) }}"
 
 ## Logging
-jitsi_meet_videobridge_loglevel: "{{ jitsi_meet_loglevel }}"
+jitsi_meet_videobridge_loglevel: "WARNING"
