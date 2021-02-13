@@ -1,7 +1,7 @@
 ---
 
 jitsi_meet_packages:
-  - jitsi-meet
+  - jicofo
   - jitsi-meet-prosody
   - jitsi-meet-web
   - jitsi-meet-web-config
