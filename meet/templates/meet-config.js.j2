@@ -44,6 +44,11 @@ var config = {
     //
 
     testing: {
+{% if jitsi_meet_octo_enabled %}
+        octo: {
+            probability: 1
+        },
+{% endif %}
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
         p2pTestMode: false
