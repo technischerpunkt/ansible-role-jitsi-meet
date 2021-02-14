@@ -59,7 +59,6 @@
     owner: jicofo
     group: jitsi
   notify: restart jicofo
-  when: jitsi_meet_jibri_enabled
 
 - name: Copy Jicofo log.properties
   copy:
