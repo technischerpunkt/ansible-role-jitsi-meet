@@ -31,6 +31,10 @@
       question: jitsi-videobridge/jvb-hostname
       value: "{{ jitsi_meet_server_name }}"
       vtype: string
+    - name: jitsi-meet
+      question: jitsi-meet/jvb-serve
+      value: "false"
+      vtype: boolean
 
 - name: Install jitsi-meet
   apt:
