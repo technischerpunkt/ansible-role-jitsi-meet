@@ -23,6 +23,14 @@
       question: jitsi-meet-prosody/turn-secret
       value: "{{ jitsi_meet_turn_secret }}"
       vtype: string
+    - name: jitsi-meet-prosody
+      question: jitsi-videobridge/jvb-hostname
+      value: "{{ jitsi_meet_server_name }}"
+      vtype: string
+    - name: jitsi-videobridge2
+      question: jitsi-videobridge/jvb-hostname
+      value: "{{ jitsi_meet_server_name }}"
+      vtype: string
 
 - name: Install jitsi-meet
   apt:
