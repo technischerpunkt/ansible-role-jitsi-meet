@@ -39,6 +39,9 @@ server {
 
     add_header Strict-Transport-Security "max-age=31536000";
 
+    access_log {{ jitsi_meet_nginx_access_log }};
+	error_log {{ jitsi_meet_nginx_error_log }};
+
     root /usr/share/jitsi-meet;
 
     # ssi on with javascript for multidomain variables in config.js

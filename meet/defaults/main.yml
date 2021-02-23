@@ -93,7 +93,7 @@ jitsi_meet_nginx_base_config: True
 
 # Disable nginx access log per default
 jitsi_meet_nginx_access_log: "off"
-jitsi_meet_nginx_error_log: /var/log/nginx/error.log
+jitsi_meet_nginx_error_log: "/var/log/nginx/{{ jitsi_meet_server_name }}.error.log"
 
 jitsi_meet_nginx_ssl_preset: "intermediate"
 jitsi_meet_nginx_ssl_presets:
