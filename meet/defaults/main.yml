@@ -1,5 +1,4 @@
 ---
-
 jitsi_meet_packages:
   - jicofo
   - jitsi-meet-prosody

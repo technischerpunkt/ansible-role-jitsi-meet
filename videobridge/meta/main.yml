@@ -7,5 +7,4 @@ dependencies:
       apt_repositories:
         - preset: jitsi
           name: download_jitsi_org
-          packages:
-            - jitsi-videobridge2
+          packages: "{{ jitsi_meet_apt_repositories_pin_packages }}"
