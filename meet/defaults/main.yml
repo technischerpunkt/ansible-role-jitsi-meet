@@ -24,6 +24,8 @@ jitsi_meet_cert_choice: "Generate a new self-signed certificate (You will later 
 jitsi_meet_config_default_language: "de"
 jitsi_meet_config_disable_third_party_requests: "true"
 jitsi_meet_config_disable_audio_levels: "false"
+jitsi_meet_config_enable_no_audio_detection: "true"
+jitsi_meet_config_enable_noisy_mic_detection: "true"
 jitsi_meet_config_disable_aec: "false" # disable acoustic echo cancellation
 jitsi_meet_config_disable_agc: "false" # disable automatic gain control
 jitsi_meet_config_disable_ap: "false" # disable all audio processing
@@ -36,11 +38,16 @@ jitsi_meet_config_require_display_name: "false"
 jitsi_meet_config_resolution: 720
 jitsi_meet_config_constraints:
   video:
+    frameRate:
+      max: 20
+      min: 5
     height:
       ideal: "{{ jitsi_meet_config_resolution }}"
       max: 720
       min: 240
 jitsi_meet_config_start_audio_only: "false"
+jitsi_meet_config_start_audio_muted: 10 # every participant after the Nth will start audio muted
+jitsi_meet_config_start_video_muted: 10 # every participant after the Nth will start video muted
 jitsi_meet_config_stun_servers:
   - stun:meet-jit-si-turnrelay.jitsi.net:443
 
@@ -66,7 +73,19 @@ jitsi_meet_interface_mobile_download_link_android: https://play.google.com/store
 jitsi_meet_interface_mobile_download_link_f_droid: https://f-droid.org/en/packages/org.jitsi.meet/
 jitsi_meet_interface_mobile_download_link_ios: https://itunes.apple.com/us/app/jitsi-meet/id1165103905
 jitsi_meet_interface_native_app_name: Jitsi Meet
+jitsi_meet_interface_connection_indicator_disabled: "false"
+jitsi_meet_interface_disable_dominant_speaker_indicator: "false"
+jitsi_meet_interface_disable_focus_indicator: "false"
+jitsi_meet_interface_disable_join_leave_notifications: "false"
 jitsi_meet_interface_disable_video_background: "false"
+jitsi_meet_interface_set_filmstrip_enabled: "true"
+jitsi_meet_interface_toolbar_buttons: [
+  'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+  'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+  'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+  'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+  'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+]
 
 # Jitsi Meet variables for title.html
 
