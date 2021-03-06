@@ -17,5 +17,5 @@ galaxy_info:
   notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/
 dependencies:
-  - role: meet
-  - role: videobridge
+  - role: jitsi_meet/meet
+  - role: jitsi_meet/videobridge

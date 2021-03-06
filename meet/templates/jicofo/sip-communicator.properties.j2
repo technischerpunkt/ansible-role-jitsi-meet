@@ -1,10 +1,10 @@
 org.jitsi.jicofo.BRIDGE_MUC=JvbBrewery@internal.auth.{{ jitsi_meet_server_name }}
-{% if jitsi_meet_jibri_enabled == true %}
+{% if jitsi_meet_jibri_enabled == true -%}
 org.jitsi.jicofo.jibri.BREWERY=JibriBrewery@internal.auth.{{ jitsi_meet_server_name }}
 org.jitsi.jicofo.jibri.PENDING_TIMEOUT=90
-{% endif %}
+{% endif -%}
 
-{% if jitsi_meet_octo_enabled %}
+{% if jitsi_meet_octo_enabled -%}
 org.jitsi.jicofo.BridgeSelector.BRIDGE_SELECTION_STRATEGY={{ jitsi_meet_octo_selection_strategy }}
 org.jitsi.jicofo.SHORT_ID=1
-{% endif %}
+{% endif -%}
