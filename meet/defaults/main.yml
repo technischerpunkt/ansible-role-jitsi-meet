@@ -1,16 +1,19 @@
 ---
-
 jitsi_meet_packages:
-  - jitsi-meet
+  - jicofo
   - jitsi-meet-prosody
   - jitsi-meet-web
   - jitsi-meet-web-config
-  - jitsi-videobridge2
 
 jitsi_meet_server_name: "meet.example.com"
 jitsi_meet_server_name_aliases: []
 
-jitsi_meet_videobridge_port: 5347
+## single server vs scalable setup
+jitsi_meet_single_instance: True
+jitsi_meet_videobridge_instances:
+  - name: 'default-id'
+    ip: 127.0.0.1
+
 jitsi_meet_jicofo_user: focus
 jitsi_meet_jicofo_port: 5347
 
@@ -24,6 +27,8 @@ jitsi_meet_cert_choice: "Generate a new self-signed certificate (You will later 
 jitsi_meet_config_default_language: "de"
 jitsi_meet_config_disable_third_party_requests: "true"
 jitsi_meet_config_disable_audio_levels: "false"
+jitsi_meet_config_enable_no_audio_detection: "true"
+jitsi_meet_config_enable_noisy_mic_detection: "true"
 jitsi_meet_config_disable_aec: "false" # disable acoustic echo cancellation
 jitsi_meet_config_disable_agc: "false" # disable automatic gain control
 jitsi_meet_config_disable_ap: "false" # disable all audio processing
@@ -37,15 +42,18 @@ jitsi_meet_config_require_display_name: "false"
 jitsi_meet_config_resolution: 720
 jitsi_meet_config_constraints:
   video:
+    frameRate:
+      max: 20
+      min: 5
     height:
       ideal: "{{ jitsi_meet_config_resolution }}"
       max: 720
       min: 240
 jitsi_meet_config_start_audio_only: "false"
+jitsi_meet_config_start_audio_muted: 10 # every participant after the Nth will start audio muted
+jitsi_meet_config_start_video_muted: 10 # every participant after the Nth will start video muted
 jitsi_meet_config_stun_servers:
   - meet-jit-si-turnrelay.jitsi.net:443
-
-# Jitsi Meet global variables
 
 # Jitsi Meet global variables
 
@@ -69,7 +77,19 @@ jitsi_meet_interface_mobile_download_link_android: https://play.google.com/store
 jitsi_meet_interface_mobile_download_link_f_droid: https://f-droid.org/en/packages/org.jitsi.meet/
 jitsi_meet_interface_mobile_download_link_ios: https://itunes.apple.com/us/app/jitsi-meet/id1165103905
 jitsi_meet_interface_native_app_name: Jitsi Meet
+jitsi_meet_interface_connection_indicator_disabled: "false"
+jitsi_meet_interface_disable_dominant_speaker_indicator: "false"
+jitsi_meet_interface_disable_focus_indicator: "false"
+jitsi_meet_interface_disable_join_leave_notifications: "false"
 jitsi_meet_interface_disable_video_background: "false"
+jitsi_meet_interface_set_filmstrip_enabled: "true"
+jitsi_meet_interface_toolbar_buttons: [
+  'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+  'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+  'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+  'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+  'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+]
 
 # Jitsi Meet variables for title.html
 
@@ -78,62 +98,25 @@ jitsi_meet_title_favicon: images/favicon.ico?v=1
 
 jitsi_meet_debsums_ignore_custom_assets: false
 
+# Jibri
+jitsi_meet_jibri_enabled: False
+jitsi_meet_jibri_password: "CHANGEME6"
+jitsi_meet_recorder_password: "CHANGEME7"
+
+# Octo
+jitsi_meet_octo_enabled: False
+jitsi_meet_octo_selection_strategy: "RegionBasedBridgeSelectionStrategy"
 
 ## Logging
 jitsi_meet_logrotate_retained_days: 7
 jitsi_meet_loglevel: "WARNING"
-jitsi_meet_videobridge_loglevel: "{{ jitsi_meet_loglevel }}"
 jitsi_meet_jicofo_loglevel: "{{ jitsi_meet_loglevel }}"
-jitsi_meet_jicofo_logging_properties: |
-  handlers= java.util.logging.ConsoleHandler
-  #handlers= java.util.logging.ConsoleHandler, com.agafua.syslog.SyslogHandler
-
-  java.util.logging.ConsoleHandler.level = {{ jitsi_meet_jicofo_loglevel }}
-  java.util.logging.ConsoleHandler.formatter = org.jitsi.utils.logging2.JitsiLogFormatter
-
-  net.java.sip.communicator.util.ScLogFormatter.programname=JVB
-
-  .level= {{ jitsi_meet_jicofo_loglevel }}
-
-  org.jitsi.videobridge.xmpp.ComponentImpl.level=FINE
-
-  # All of the INFO level logs from MediaStreamImpl are unnecessary in the context of jitsi-videobridge.
-  org.jitsi.impl.neomedia.MediaStreamImpl.level=WARNING
-
-  # Syslog(uncomment handler to use)
-  com.agafua.syslog.SyslogHandler.transport = udp
-  com.agafua.syslog.SyslogHandler.facility = local0
-  com.agafua.syslog.SyslogHandler.port = 514
-  com.agafua.syslog.SyslogHandler.hostname = localhost
-  com.agafua.syslog.SyslogHandler.formatter = org.jitsi.utils.logging2.JitsiLogFormatter
-  com.agafua.syslog.SyslogHandler.escapeNewlines = false
-
-  # to disable double timestamps in syslog uncomment next line
-  #net.java.sip.communicator.util.ScLogFormatter.disableTimestamp=true
-
-  # time series logging
-  java.util.logging.SimpleFormatter.format= %5$s%n
-  java.util.logging.FileHandler.level = ALL
-  java.util.logging.FileHandler.formatter = java.util.logging.SimpleFormatter
-  java.util.logging.FileHandler.pattern = /tmp/jvb-series.log
-  java.util.logging.FileHandler.limit = 200000000
-  java.util.logging.FileHandler.count = 1
-  java.util.logging.FileHandler.append = false
-
-  timeseries.level=OFF
-  timeseries.org.jitsi.videobridge.cc.vp8.level=ALL
-  timeseries.useParentHandlers = false
-  timeseries.handlers = java.util.logging.FileHandler
 
 jitsi_meet_nginx_base_config: True
 
 # Disable nginx access log per default
 jitsi_meet_nginx_access_log: "off"
-jitsi_meet_nginx_error_log: /var/log/nginx/error.log
-
-jitsi_meet_jibri_enabled: False
-jitsi_meet_jibri_password: "CHANGEME6"
-jitsi_meet_recorder_password: "CHANGEME7"
+jitsi_meet_nginx_error_log: "/var/log/nginx/{{ jitsi_meet_server_name }}.error.log"
 
 jitsi_meet_nginx_ssl_preset: "intermediate"
 jitsi_meet_nginx_ssl_presets:

@@ -42,7 +42,7 @@ var interfaceConfig = {
      *
      * @type {boolean}
      */
-    CONNECTION_INDICATOR_DISABLED: false,
+    CONNECTION_INDICATOR_DISABLED: {{ jitsi_meet_interface_connection_indicator_disabled }},
 
     DEFAULT_BACKGROUND: '{{ jitsi_meet_interface_default_background }}',
     DEFAULT_LOCAL_DISPLAY_NAME: '{{ jitsi_meet_interface_default_local_display_name }}',
@@ -50,14 +50,14 @@ var interfaceConfig = {
     DEFAULT_REMOTE_DISPLAY_NAME: '{{ jitsi_meet_interface_default_remote_display_name }}',
     DEFAULT_WELCOME_PAGE_LOGO_URL: '{{ jitsi_meet_interface_default_welcome_page_logo_url }}',
 
-    DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
+    DISABLE_DOMINANT_SPEAKER_INDICATOR: {{ jitsi_meet_interface_disable_dominant_speaker_indicator }},
 
-    DISABLE_FOCUS_INDICATOR: false,
+    DISABLE_FOCUS_INDICATOR: {{ jitsi_meet_interface_disable_focus_indicator }},
 
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
      */
-    DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: {{ jitsi_meet_interface_disable_join_leave_notifications }},
 
     /**
      * If true, presence status: busy, calling, connected etc. is not displayed.
@@ -201,19 +201,15 @@ var interfaceConfig = {
      * - it's impossible to control the placement of buttons
      * - 'desktop' controls the "Share your screen" button
      */
-    TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
-        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
-    ],
+    TOOLBAR_BUTTONS: {{ jitsi_meet_interface_toolbar_buttons | to_nice_json }},
 
     TOOLBAR_TIMEOUT: 4000,
 
     // Browsers, in addition to those which do not fully support WebRTC, that
     // are not supported and should show the unsupported browser page.
     UNSUPPORTED_BROWSERS: [],
+
+    SET_FILMSTRIP_ENABLED: {{ jitsi_meet_interface_set_filmstrip_enabled }},
 
     /**
      * Whether to show thumbnails in filmstrip as a column instead of as a row.

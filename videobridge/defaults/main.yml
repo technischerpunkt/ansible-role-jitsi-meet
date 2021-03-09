@@ -1,0 +1,34 @@
+---
+# Global
+jitsi_meet_server_name: "meet.example.com"
+jitsi_meet_config_stun_servers:
+  - stun:meet-jit-si-turnrelay.jitsi.net:443
+jitsi_meet_jicofo_user: focus
+
+# Videobridge
+jitsi_meet_videobridge_port: 5347
+
+## single server vs scalable setup
+jitsi_meet_single_instance: True
+jitsi_meet_videobridge_prosody_server_ip: "localhost"
+jitsi_meet_videobridge_muc_nickname: "{{ jitsi_meet_single_instance | ternary('jvb1', inventory_hostname) }}"
+_jitsi_meet_apt_repositories_pin_packages:
+  - jicofo
+  - jitsi-meet-prosody
+  - jitsi-meet-web
+  - jitsi-meet-web-config
+jitsi_meet_apt_repositories_pin_packages: "{{ ['jitsi-videobridge2'] + (jitsi_meet_single_instance | ternary(_jitsi_meet_apt_repositories_pin_packages, [])) }}"
+
+# Octo
+jitsi_meet_octo_enabled: False
+jitsi_meet_octo_private_ip: "{{ ansible_default_ipv4.address }}"
+jitsi_meet_octo_public_ip: "{{ ansible_default_ipv4.address }}"
+jitsi_meet_octo_region: region1
+
+## The packet rate (pps) at which we'll consider the bridge overloaded
+jitsi_meet_videobridge_load_threshold: 50000
+## The packet rate (pps) at which we'll consider the bridge 'underloaded' enough to start recovery
+jitsi_meet_videobridge_recovery_threshold: 40000
+
+## Logging
+jitsi_meet_videobridge_loglevel: "WARNING"

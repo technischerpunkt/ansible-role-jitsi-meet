@@ -7,10 +7,6 @@
     value: "{{ item.value }}"
     vtype: "{{ item.vtype }}"
   loop:
-    - name: jitsi-videobridge2
-      question: jitsi-videobridge/jvb-hostname
-      value: "{{ jitsi_meet_server_name }}"
-      vtype: string
     - name: jitsi-meet-web-config
       question: jitsi-meet/cert-choice
       value: "{{ jitsi_meet_cert_choice }}"
@@ -27,6 +23,18 @@
       question: jitsi-meet-prosody/turn-secret
       value: "{{ jitsi_meet_turn_secret }}"
       vtype: string
+    - name: jitsi-meet-prosody
+      question: jitsi-videobridge/jvb-hostname
+      value: "{{ jitsi_meet_server_name }}"
+      vtype: string
+    - name: jitsi-videobridge2
+      question: jitsi-videobridge/jvb-hostname
+      value: "{{ jitsi_meet_server_name }}"
+      vtype: string
+    - name: jitsi-meet
+      question: jitsi-meet/jvb-serve
+      value: "{{ jitsi_meet_single_instance | to_json }}"
+      vtype: boolean
 
 - name: Install jitsi-meet
   apt:
@@ -34,15 +42,6 @@
     install_recommends: no
     state: present
     update_cache: yes
-
-- name: Copy videobridge sip-communicator.properties
-  template:
-    src: videobridge/sip-communicator.properties.j2
-    dest: /etc/jitsi/videobridge/sip-communicator.properties
-    owner: jvb
-    group: jitsi
-    mode: 0640
-  notify: restart jitsi-videobridge2
 
 - name: Copy jicofo config
   template:
@@ -60,45 +59,21 @@
     owner: jicofo
     group: jitsi
   notify: restart jicofo
-  when: jitsi_meet_jibri_enabled
 
-- name: Copy Jicofo log.properties
-  copy:
-    content: "{{ jitsi_meet_jicofo_logging_properties }}"
+- name: Copy Jicofo logging.properties
+  template:
+    src: jicofo/logging.properties.j2
     dest: /etc/jitsi/jicofo/logging.properties
     owner: jicofo
     group: jitsi
     mode: 0640
   notify: restart jicofo
 
-- name: Copy jitsi-videobridge2 config
-  template:
-    src: videobridge/config.j2
-    dest: /etc/jitsi/videobridge/config
-    owner: jvb
-    group: jitsi
-    mode: 0640
-  notify: restart jitsi-videobridge2
-
-- name: Copy jitsi-videobridge2 log.properties
-  template:
-    src: videobridge/logging.properties.j2
-    dest: /etc/jitsi/videobridge/logging.properties
-    owner: jvb
-    group: jitsi
-    mode: 0640
-  notify: restart jitsi-videobridge2
-
 - name: Copy jitsi meet config
   template:
     mode: 0644
     src: meet-config.js.j2
     dest: "/etc/jitsi/meet/{{ jitsi_meet_server_name }}-config.js"
-
-- name: Enable jitsi-videobridge2
-  service:
-    name: jitsi-videobridge2
-    enabled: yes
 
 - name: Enable jicofo
   service:

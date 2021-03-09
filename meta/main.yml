@@ -1,9 +1,9 @@
 ---
 galaxy_info:
   role_name: jitsi_meet
-  author: systemli
+  author: technischerpunkt
   description: Install and maintain jitsi-meet. Contains tests for Molecule.
-  company: systemli.org
+  company: technischer.org
   license: GPLv3
   min_ansible_version: 2.2
   galaxy_tags:
@@ -17,9 +17,5 @@ galaxy_info:
   notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/
 dependencies:
-  - role: systemli.apt_repositories
-    vars:
-      apt_repositories:
-        - preset: jitsi
-          name: download_jitsi_org
-          packages: "{{ jitsi_meet_packages }}"
+  - role: jitsi_meet/meet
+  - role: jitsi_meet/videobridge
